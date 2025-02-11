@@ -6,8 +6,6 @@ workflows:
     environment:
       node: 18  # Ensure a compatible Node.js version for React Native
       java: 17  # Java version required by Gradle
-      android_signing:
-        - keystore_reference  # If signing is needed, setup keystore in Codemagic
     working_directory: android  # Run commands inside the android folder
     scripts:
       - name: Install Dependencies
