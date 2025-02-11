@@ -4,14 +4,15 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     environment:
+      os: macOS-12  # Explicitly define OS
       node: 18  # Ensure a compatible Node.js version for React Native
       java: 17  # Java version required by Gradle
     working_directory: android  # Run commands inside the android folder
     scripts:
       - name: Install Dependencies
-        script: |
-          cd ..
-          yarn install  # Or use npm install if you prefer
+        script: yarn install  # No need to cd ..
+      - name: Set Gradle Permissions
+        script: chmod +x ./gradlew  # Ensure the Gradle wrapper is executable
       - name: Build Android APK
         script: ./gradlew assembleRelease
     artifacts:
