@@ -1,0 +1,20 @@
+workflows:
+  android-native-build:
+    name: Android Native Build
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    environment:
+      node: 18  # Ensure a compatible Node.js version for React Native
+      java: 17  # Java version required by Gradle
+      android_signing:
+        - keystore_reference  # If signing is needed, setup keystore in Codemagic
+    working_directory: android  # Run commands inside the android folder
+    scripts:
+      - name: Install Dependencies
+        script: |
+          cd ..
+          yarn install  # Or use npm install if you prefer
+      - name: Build Android APK
+        script: ./gradlew assembleRelease
+    artifacts:
+      - app/build/outputs/apk/release/app-release.apk
